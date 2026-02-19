@@ -86,7 +86,7 @@ CellularPotts :: CellularPotts(int L, int num_cells, std::mt19937 gen)
         return dH;
     }
 
-    void CellularPotts::attempt_copy() {
+    double CellularPotts::attempt_copy() {
         int x = dist_site(gen);
         int y = dist_site(gen);
         int i = idx(x,y);
@@ -107,6 +107,7 @@ CellularPotts :: CellularPotts(int L, int num_cells, std::mt19937 gen)
             volume[sigma_old]--;
             volume[sigma_new]++;
         }
+        return dH
     }
 
     double CellularPotts::total_energy() const
