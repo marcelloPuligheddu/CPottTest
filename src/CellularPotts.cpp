@@ -200,6 +200,7 @@ double CellularPotts::total_energy() const {
         return H;
 }
 
+void CellularPotts::set_temperature( double new_temperature ){ temperature = new_temperature ;  }
 
 int CellularPotts::total_volume() const {
         int sum = 0;
