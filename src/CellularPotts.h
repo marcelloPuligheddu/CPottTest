@@ -14,6 +14,10 @@ public:
     bool attempt_copy();
     double total_energy() const;
     int total_volume() const;
+    double adhesion_energy(int i, int new_sigma);
+    double volume_energy(int sigma_old, int new_sigma);
+
+
 
 private:
     int L;
