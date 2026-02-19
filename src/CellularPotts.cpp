@@ -135,16 +135,6 @@ double CellularPotts::volume_energy(int sigma_old, int sigma_new) {
         return dH;
 }
 
-void CellularPotts::apply_move(int i, int j)
-{
-    int sigma_old = lattice[i];
-    int sigma_new = lattice[j];
-
-    lattice[i] = sigma_new;
-    volume[sigma_old]--;
-    volume[sigma_new]++;
-}
-
 bool CellularPotts::accept(double dH)
 {
     if (dH <= 0.0)
