@@ -20,15 +20,15 @@ FetchContent_MakeAvailable(googletest)
 
 enable_testing()
 
-add_executable(unit_tests
-    tests/test_energy.cpp
-    tests/test_volume.cpp
+add_executable(unit_test
+    test/test_energy.cpp
+    test/test_volume.cpp
 )
 
-target_link_libraries(unit_tests
+target_link_libraries(unit_test
     cpm
     gtest_main
 )
 
 include(GoogleTest)
-gtest_discover_tests(unit_tests)
+gtest_discover_tests(unit_test)
