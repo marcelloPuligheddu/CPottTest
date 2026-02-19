@@ -6,7 +6,7 @@
 
 #include"CellularPotts.h"
 
-CellularPotts :: CellularPotts(int L, int num_cells, std::std::mt19937 gen)
+CellularPotts :: CellularPotts(int L, int num_cells, std::mt19937 gen)
         : L(L), lattice(L*L), 
           volume(num_cells, 0),
           V0(num_cells, 100),
