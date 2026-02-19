@@ -108,4 +108,3 @@ CellularPotts :: CellularPotts(int L, int num_cells, std::mt19937 gen)
             volume[sigma_new]++;
         }
     }
-};
