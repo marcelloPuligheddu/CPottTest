@@ -16,8 +16,7 @@ public:
     int total_volume() const;
     double adhesion_energy(int i, int new_sigma);
     double volume_energy(int sigma_old, int new_sigma);
-
-
+    void set_temperature( double temperature );
 
 private:
     int L;
