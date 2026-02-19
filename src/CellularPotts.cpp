@@ -107,7 +107,7 @@ CellularPotts :: CellularPotts(int L, int num_cells, std::mt19937 gen)
             volume[sigma_old]--;
             volume[sigma_new]++;
         }
-        return dH
+        return dH;
     }
 
     double CellularPotts::total_energy() const
