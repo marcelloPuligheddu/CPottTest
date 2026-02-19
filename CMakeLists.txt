@@ -23,6 +23,7 @@ enable_testing()
 add_executable(unit_test
     test/test_energy.cpp
     test/test_volume.cpp
+    test/test_ZeroTemperatureRejectsPositiveDelta.cpp
 )
 
 target_link_libraries(unit_test
