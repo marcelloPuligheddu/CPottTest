@@ -26,5 +26,5 @@ private:
     int neighbor(int x, int y) ;
     double adhesion_energy(int i, int new_sigma) ;
     double volume_energy(int sigma_old, int sigma_new) ;
-    void attempt_copy() ;
+    double attempt_copy() ;
 };
