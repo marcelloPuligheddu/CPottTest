@@ -197,7 +197,8 @@ double CellularPotts::total_energy() const {
             H += lambdaV * dv * dv;
         }
     
-        return H}
+        return H;
+}
 
 
 int CellularPotts::total_volume() const {
