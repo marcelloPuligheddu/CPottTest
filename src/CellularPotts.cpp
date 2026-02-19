@@ -28,7 +28,7 @@ CellularPotts :: CellularPotts(int L, int num_cells, std::mt19937& gen)
 
 inline int CellularPotts::idx(int x, int y) const { return x + L*y; }
 
-int CellularPotts::neighbor(int x, int y) {
+int CellularPotts::random_neighbor(int x, int y) {
         int dir = gen() % 4;
         if (dir == 0) x = (x+1) % L;
         if (dir == 1) x = (x-1+L) % L;
