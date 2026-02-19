@@ -3,15 +3,13 @@
 #include <cmath>
 #include <iostream>
 
-class CellularPotts {
-public:
-    CellularPotts(int L, int num_cells)
+CellularPotts :: CellularPotts(int L, int num_cells, std::std::mt19937 gen)
         : L(L), lattice(L*L), 
           volume(num_cells, 0),
           V0(num_cells, 100),
           lambdaV(50.0),
           temperature(10.0),
-          gen(std::random_device{}()),
+          gen(gen),
           dist_site(0, L-1),
           dist_prob(0.0, 1.0)
     {
@@ -26,29 +24,16 @@ public:
         J.resize(num_cells, std::vector<double>(num_cells, 16.0));
     }
 
-    void monte_carlo_step() {
+    void CellularPotts::monte_carlo_step() {
         for (int k = 0; k < L*L; ++k)
             attempt_copy();
     }
 
-private:
-    int L;
-    std::vector<int> lattice;
-    std::vector<int> volume;
-    std::vector<int> V0;
-    std::vector<std::vector<double>> J;
-    double lambdaV;
-    double temperature;
-
-    std::mt19937 gen;
-    std::uniform_int_distribution<int> dist_site;
-    std::uniform_real_distribution<double> dist_prob;
-
-    inline int idx(int x, int y) const {
+    inline int CellularPotts::idx(int x, int y) const {
         return x + L*y;
     }
 
-    int neighbor(int x, int y) {
+    int CellularPotts::neighbor(int x, int y) {
         int dir = gen() % 4;
         if (dir == 0) x = (x+1) % L;
         if (dir == 1) x = (x-1+L) % L;
@@ -57,7 +42,7 @@ private:
         return idx(x,y);
     }
 
-    double adhesion_energy(int i, int new_sigma) {
+    double CellularPotts::adhesion_energy(int i, int new_sigma) {
         int x = i % L;
         int y = i / L;
         double dH = 0.0;
@@ -82,7 +67,7 @@ private:
         return dH;
     }
 
-    double volume_energy(int sigma_old, int sigma_new) {
+    double CellularPotts::volume_energy(int sigma_old, int sigma_new) {
         double dH = 0.0;
 
         // remove from old
@@ -98,7 +83,7 @@ private:
         return dH;
     }
 
-    void attempt_copy() {
+    void CellularPotts::attempt_copy() {
         int x = dist_site(gen);
         int y = dist_site(gen);
         int i = idx(x,y);
