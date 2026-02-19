@@ -1,3 +1,7 @@
+#include <gtest/gtest.h>
+#include <random>
+#include "CellularPotts.h"
+
 TEST(CPM, ZeroTemperatureRejectsPositiveDelta)
 {
     std::mt19937 gen(1234);
