@@ -9,7 +9,6 @@ public:
     void monte_carlo_step();
     double total_energy() const;
     int total_volume() const;
-private:
     int L;
     std::vector<int> lattice;
     std::vector<int> volume;
