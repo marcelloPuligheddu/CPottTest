@@ -3,6 +3,9 @@
 #include <cmath>
 #include <iostream>
 
+
+#include"CellularPotts.h"
+
 CellularPotts :: CellularPotts(int L, int num_cells, std::std::mt19937 gen)
         : L(L), lattice(L*L), 
           volume(num_cells, 0),
