@@ -108,3 +108,53 @@ CellularPotts :: CellularPotts(int L, int num_cells, std::mt19937 gen)
             volume[sigma_new]++;
         }
     }
+
+    double CellularPotts::total_energy() const
+    {
+        double H = 0.0;
+    
+        // --- Adhesion term ---
+        for (int y = 0; y < L; ++y)
+        {
+            for (int x = 0; x < L; ++x)
+            {
+                int i = idx(x, y);
+                int sigma_i = lattice[i];
+    
+                // Right neighbor
+                int xr = (x + 1) % L;
+                int ir = idx(xr, y);
+                int sigma_r = lattice[ir];
+    
+                if (sigma_i != sigma_r)
+                    H += J[sigma_i][sigma_r];
+    
+                // Up neighbor
+                int yu = (y + 1) % L;
+                int iu = idx(x, yu);
+                int sigma_u = lattice[iu];
+    
+                if (sigma_i != sigma_u)
+                    H += J[sigma_i][sigma_u];
+            }
+        }
+    
+        // --- Volume constraint ---
+        for (size_t s = 0; s < volume.size(); ++s)
+        {
+            double dv = volume[s] - V0[s];
+            H += lambdaV * dv * dv;
+        }
+    
+        return H;
+    }
+
+
+    int CellularPotts::total_volume() const
+    {
+        int sum = 0;
+        for (int v : volume)
+            sum += v;
+        return sum;
+    }
+
