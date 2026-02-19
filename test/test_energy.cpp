@@ -1,4 +1,4 @@
-TEST(CPM, VolumeConservation) {
+TEST(CPM, EnergyConservation) {
     std::mt19937 gen(1234);
     CellularPotts cpm(32, 10, gen);
     double E0 = cpm.total_energy();
