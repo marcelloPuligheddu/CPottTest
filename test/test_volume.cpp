@@ -1,3 +1,7 @@
+#include <gtest/gtest.h>
+#include <random>
+#include "CellularPotts.h"
+
 TEST(CPM, VolumeConservation) {
     std::mt19937 gen(1234);
     CellularPotts cpm(32, 10, gen);
