@@ -7,6 +7,8 @@ class CellularPotts {
 public:
     CellularPotts(int L, int num_cells, std::mt19937 gen_);
     void monte_carlo_step();
+    double total_energy() const;
+    int total_volume() const;
 private:
     int L;
     std::vector<int> lattice;
