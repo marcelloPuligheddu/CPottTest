@@ -96,7 +96,7 @@ CellularPotts :: CellularPotts(int L, int num_cells, std::mt19937 gen)
         int sigma_old = lattice[i];
         int sigma_new = lattice[j];
 
-        if (sigma_old == sigma_new) return;
+        if (sigma_old == sigma_new) return 0.0 ;
 
         double dH = 0.0;
         dH += adhesion_energy(i, sigma_new);
