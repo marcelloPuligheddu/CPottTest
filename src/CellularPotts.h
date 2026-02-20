@@ -36,13 +36,6 @@ private:
 };
 
 
-#include <vector>
-#include <random>
-#include <cmath>
-#include <iostream>
-
-
-#include"CellularPotts.h"
 
 template<int L, int K >
 CellularPotts<L,K>::CellularPotts( std::mt19937& gen)
