@@ -6,29 +6,31 @@
 
 #include"CellularPotts.h"
 
-CellularPotts :: CellularPotts(int L, int num_cells, std::mt19937& gen)
-        : L(L), lattice(L*L), 
-          volume(num_cells, 0),
-          V0(num_cells, 100),
+template<int L, int K >
+double CellularPotts<L,K>::CellularPotts( std::mt19937& gen)
+        : lattice(L*L), 
+          volume(K, 0),
+          V0(K, 100),
+          J(K*K, 100),
           lambdaV(50.0),
           temperature(10.0),
           gen(gen),
           dist_site(0, L-1),
           dist_prob(0.0, 1.0) {
         // Initialize lattice with random cell IDs
-        std::uniform_int_distribution<int> dist_cell(0, num_cells-1);
+        std::uniform_int_distribution<int> dist_cell(0, K-1);
         for (int i = 0; i < L*L; ++i) {
             lattice[i] = dist_cell(gen);
             volume[lattice[i]]++;
         }
 
-        // Example adhesion matrix
-        J.resize(num_cells, std::vector<double>(num_cells, 16.0));
 }
 
-inline int CellularPotts::idx(int x, int y) const { return x + L*y; }
+template<int L, int K >
+inline int CellularPotts<L,K>::idx(int x, int y) const { return x + L*y; }
 
-int CellularPotts::random_neighbor(int x, int y) {
+template<int L, int K >
+int CellularPotts<L,K>::random_neighbor(int x, int y) {
         int dir = gen() % 4;
         if (dir == 0) x = (x+1) % L;
         if (dir == 1) x = (x-1+L) % L;
@@ -38,10 +40,11 @@ int CellularPotts::random_neighbor(int x, int y) {
 }
 
 
+template<int L, int K >
+void CellularPotts<L,K>::monte_carlo_step() { for (int k = 0; k < L*L; ++k) attempt_copy(); }
 
-void CellularPotts::monte_carlo_step() { for (int k = 0; k < L*L; ++k) attempt_copy(); }
-
-double CellularPotts::compute_delta(int i, int j) const {
+template<int L, int K >
+double CellularPotts<L,K>::compute_delta(int i, int j) const {
     int sigma_old = lattice[i];
     int sigma_new = lattice[j];
 
@@ -83,7 +86,8 @@ double CellularPotts::compute_delta(int i, int j) const {
     return dH;
 }
 
-void CellularPotts::apply_move(int i, int j)
+template<int L, int K >
+void CellularPotts<L,K>::apply_move(int i, int j)
 {
     int sigma_old = lattice[i];
     int sigma_new = lattice[j];
@@ -93,8 +97,8 @@ void CellularPotts::apply_move(int i, int j)
     volume[sigma_new]++;
 }
 
-
-double CellularPotts::adhesion_energy(int i, int new_sigma) {
+template<int L, int K >
+double CellularPotts<L,K>::adhesion_energy(int i, int new_sigma) {
         int x = i % L;
         int y = i / L;
         double dH = 0.0;
@@ -119,7 +123,8 @@ double CellularPotts::adhesion_energy(int i, int new_sigma) {
         return dH;
 }
 
-double CellularPotts::volume_energy(int sigma_old, int sigma_new) {
+template<int L, int K >
+double CellularPotts<L,K>::volume_energy(int sigma_old, int sigma_new) {
         double dH = 0.0;
 
         // remove from old
@@ -135,7 +140,8 @@ double CellularPotts::volume_energy(int sigma_old, int sigma_new) {
         return dH;
 }
 
-bool CellularPotts::accept(double dH)
+template<int L, int K >
+bool CellularPotts<L,K>::accept(double dH)
 {
     if (dH <= 0.0)
         return true;
@@ -143,7 +149,8 @@ bool CellularPotts::accept(double dH)
     return dist_prob(gen) < std::exp(-dH / temperature);
 }
 
-bool CellularPotts::attempt_copy()
+template<int L, int K >
+bool CellularPotts<L,K>::attempt_copy()
 {
     int x = dist_site(gen);
     int y = dist_site(gen);
@@ -161,7 +168,8 @@ bool CellularPotts::attempt_copy()
     return false;
 }
 
-double CellularPotts::total_energy() const {
+template<int L, int K >
+double CellularPotts<L,K>::total_energy() const {
         double H = 0.0;
     
         // --- Adhesion term ---
@@ -200,9 +208,11 @@ double CellularPotts::total_energy() const {
         return H;
 }
 
-void CellularPotts::set_temperature( double new_temperature ){ temperature = new_temperature ;  }
+template<int L, int K >
+void CellularPotts<L,K>::set_temperature( double new_temperature ){ temperature = new_temperature ;  }
 
-int CellularPotts::total_volume() const {
+template<int L, int K >
+int CellularPotts<L,K>::total_volume() const {
         int sum = 0;
         for (int v : volume)
             sum += v;
