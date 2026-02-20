@@ -6,7 +6,7 @@
 template< int L, int K >
 class CellularPotts {
 public:
-    CellularPotts(int L, int num_cells, std::mt19937& gen);
+    CellularPotts(std::mt19937& gen);
 
     void monte_carlo_step();
     double compute_delta(int i, int j) const;
