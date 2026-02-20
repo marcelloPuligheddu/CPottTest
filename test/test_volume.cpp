@@ -4,7 +4,7 @@
 
 TEST(CPM, ApplyMoveUpdatesVolume) {
     std::mt19937 gen(1234);
-    CellularPotts cpm(16, 4, gen);
+    CellularPotts cpm<16, 4> (gen);
 
     int i = 5;
     int j = 6;    
