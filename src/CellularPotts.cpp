@@ -186,7 +186,7 @@ double CellularPotts<L,K>::total_energy() const {
                 int sigma_r = lattice[ir];
     
                 if (sigma_i != sigma_r)
-                    H += J[sigma_i][sigma_r];
+                    H += J[sigma_i*K+sigma_r];
     
                 // Up neighbor
                 int yu = (y + 1) % L;
@@ -194,7 +194,7 @@ double CellularPotts<L,K>::total_energy() const {
                 int sigma_u = lattice[iu];
     
                 if (sigma_i != sigma_u)
-                    H += J[sigma_i][sigma_u];
+                    H += J[sigma_i*K+sigma_u];
             }
         }
     
