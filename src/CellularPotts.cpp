@@ -7,7 +7,7 @@
 #include"CellularPotts.h"
 
 template<int L, int K >
-double CellularPotts<L,K>::CellularPotts( std::mt19937& gen)
+CellularPotts<L,K>::CellularPotts( std::mt19937& gen)
         : lattice(L*L), 
           volume(K, 0),
           V0(K, 100),
