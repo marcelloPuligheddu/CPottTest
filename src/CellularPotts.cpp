@@ -65,8 +65,8 @@ double CellularPotts<L,K>::compute_delta(int i, int j) const {
 
     for (int n : neigh) {
         int sigma_n = lattice[n];
-        dH += J[sigma_new][sigma_n] * (sigma_new != sigma_n);
-        dH -= J[sigma_old][sigma_n] * (sigma_old != sigma_n);
+        dH += J[sigma_new*K+sigma_n] * (sigma_new != sigma_n);
+        dH -= J[sigma_old*K+sigma_n] * (sigma_old != sigma_n);
     }
 
     // volume
@@ -116,8 +116,8 @@ double CellularPotts<L,K>::adhesion_energy(int i, int new_sigma) {
         for (int n : neigh) {
             int sigma_n = lattice[n];
 
-            dH += J[new_sigma][sigma_n] * (new_sigma != sigma_n);
-            dH -= J[sigma_old][sigma_n] * (sigma_old != sigma_n);
+            dH += J[new_sigma*K+sigma_n] * (new_sigma != sigma_n);
+            dH -= J[sigma_old*K+sigma_n] * (sigma_old != sigma_n);
         }
 
         return dH;
