@@ -3,6 +3,7 @@
 #include <cmath>
 #include <iostream>
 
+template< int L, int K >
 class CellularPotts {
 public:
     CellularPotts(int L, int num_cells, std::mt19937& gen);
@@ -19,11 +20,10 @@ public:
     void set_temperature( double temperature );
 
 private:
-    int L;
     std::vector<int> lattice;
     std::vector<int> volume;
     std::vector<int> V0;
-    std::vector<std::vector<double>> J;
+    std::vector<double> J;
 
     double lambdaV;
     double temperature;
@@ -31,7 +31,6 @@ private:
     std::mt19937& gen;
     std::uniform_int_distribution<int> dist_site;
     std::uniform_real_distribution<double> dist_prob;
-
     int idx(int x, int y) const;
     int random_neighbor(int x, int y);
 };
